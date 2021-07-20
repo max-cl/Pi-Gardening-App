@@ -1,0 +1,47 @@
+const dotenv = require("dotenv");
+dotenv.config();
+const express = require("express");
+const socketIO = require("socket.io");
+const { ObjectId } = require("mongodb");
+const { connectToDatabase } = require("./mongodb");
+const http = require("http");
+const cors = require("cors");
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors({ origin: "http://localhost:3000" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+const server = http.createServer(app);
+const io = socketIO(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+    },
+});
+
+io.on("connection", (socket) => {
+    console.log("New client connected" + socket.id);
+    console.log(socket);
+    // Returning the initial data of food menu from FoodItems collection
+    socket.on("initial_data", async () => {
+        const { db } = await connectToDatabase();
+        const dashboardData = await db.collection("raw_data").find({}).sort({ _id: -1 }).limit(1).toArray();
+        io.sockets.emit("get_data", dashboardData);
+    });
+
+    // disconnect is fired when a client leaves the server
+    socket.on("disconnect", () => {
+        console.log("user disconnected");
+    });
+});
+
+app.get("/test", async (req, res) => {
+    const { db } = await connectToDatabase();
+    const devices = await db.collection("raw_data").find({}).toArray();
+    res.json({ data: devices });
+});
+
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
