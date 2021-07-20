@@ -109,6 +109,14 @@ export default function Device({ deviceProps }) {
         setResponseApi({ statusCode, serverMessage: message });
     };
 
+    const handleMQTT = async (topic) => {
+        const { data, statusCode, message } = await ApiRequestUtil(`/mqtt`, "POST", {
+            topic: `${id}/${topic}`,
+            message: `Sent message to topic ${id}/${topic}`,
+        });
+        console.log(`Sent message to topic ${id}/${topic}`);
+    };
+
     useEffect(() => {
         setDevice(deviceProps.device);
         setSensors(deviceProps.device.sensors);
@@ -137,7 +145,11 @@ export default function Device({ deviceProps }) {
                 {device.length === 0 ? (
                     <Spinner />
                 ) : (
-                    <TableDeviceDetail device={device} handleOnClick={() => setOpenModal(!openModal)} />
+                    <TableDeviceDetail
+                        device={device}
+                        handleOnClick={() => setOpenModal(!openModal)}
+                        handleMQTT={handleMQTT}
+                    />
                 )}
 
                 {openModalAddSensor && (
