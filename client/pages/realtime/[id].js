@@ -83,7 +83,7 @@ export default function DashboardContainer({ sensorsProps }) {
         socket.on("RealTimeApi", getRealTimeData);
         return () => {
             socket.off("RealTimeApi", getRealTimeData);
-            // socket.disconnect();
+            socket.disconnect();
         };
     });
 
@@ -156,6 +156,6 @@ export async function getStaticProps({ params }) {
         },
         // Re-generate the post at most once per second
         // if a request comes in
-        revalidate: 1,
+        revalidate: 60,
     };
 }

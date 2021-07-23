@@ -90,5 +90,5 @@ export default function DashboardContainer({ devicesProps }) {
 export async function getStaticProps(context) {
     const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
     console.log("getStaticProps: ", data);
-    return { props: { devicesProps: data }, revalidate: 1 };
+    return { props: { devicesProps: data }, revalidate: 60 };
 }
