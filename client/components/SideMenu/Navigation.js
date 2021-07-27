@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { MenuItem } from "./MenuItem";
 
+// Utils
+import { setLogout } from "../../util/authUtil";
+
 const variants = {
     open: {
         transition: { staggerChildren: 0.07, delayChildren: 0.2 },
@@ -22,15 +25,46 @@ const Ul = styled(motion.ul)`
 export const Navigation = () => (
     <Ul variants={variants}>
         {Sections.map((section) => (
-            <MenuItem id={section.id} sectionName={section.sectionName} path={section.path} key={section.id} />
+            <MenuItem
+                id={section.id}
+                sectionName={section.sectionName}
+                path={section.path}
+                key={section.id}
+                handleClick={section.handleClick}
+            />
         ))}
     </Ul>
 );
 
 const Sections = [
-    { id: 1, sectionName: "Real-Time", path: "/realtime" },
-    { id: 2, sectionName: "Dashboard", path: "/dashboard" },
-    { id: 3, sectionName: "Devices", path: "/devices" },
-    { id: 4, sectionName: "Profile", path: "/profile" },
-    { id: 99, sectionName: "Sign Out", path: "/" },
+    {
+        id: 1,
+        sectionName: "Real-Time",
+        path: "/realtime",
+        handleClick: () => console.log("Real-Time Section"),
+    },
+    {
+        id: 2,
+        sectionName: "Dashboard",
+        path: "/dashboard",
+        handleClick: () => console.log("Dashboard Section"),
+    },
+    {
+        id: 3,
+        sectionName: "Devices",
+        path: "/devices",
+        handleClick: () => console.log("Devices Section"),
+    },
+    {
+        id: 4,
+        sectionName: "Profile",
+        path: "/profile",
+        handleClick: () => console.log("Profile Section"),
+    },
+    {
+        id: 99,
+        sectionName: "Sign Out",
+        path: "/",
+        handleClick: (e) => setLogout(e),
+    },
 ];

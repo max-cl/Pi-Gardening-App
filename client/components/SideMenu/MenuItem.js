@@ -52,15 +52,25 @@ const Li = styled(motion.li)`
     }
 `;
 
-export const MenuItem = ({ id, sectionName, path }) => {
+export const MenuItem = ({ id, sectionName, path, handleClick }) => {
     const router = useRouter();
 
     return (
         <Link href={`${path}`}>
             <a>
-                <Li variants={variants} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                    {/* <div className="icon-placeholder" /> */}
-                    <div className={`text-placeholder ${router.asPath === path ? "active" : ""}`}>{sectionName}</div>
+                <Li
+                    variants={variants}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <div
+                        onClick={handleClick}
+                        className={`text-placeholder ${
+                            router.asPath === path ? "active" : ""
+                        }`}
+                    >
+                        {sectionName}
+                    </div>
                 </Li>
             </a>
         </Link>

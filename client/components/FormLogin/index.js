@@ -78,6 +78,7 @@ export default function FormLogin({
     handleOnSubmitSignup,
     handleOnChangeSignup,
     signupValues,
+    formMessage,
 }) {
     const [isLogin, setIsLogin] = useState(true);
 
@@ -104,19 +105,22 @@ export default function FormLogin({
                     {isLogin ? (
                         <>
                             <form onSubmit={handleOnSubmitLogin}>
+                                {formMessage.status === "error" && (
+                                    <ErrorMessage>
+                                        {formMessage.error}
+                                    </ErrorMessage>
+                                )}
                                 <div>
-                                    {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
                                     <input
-                                        type="text"
-                                        name="username"
-                                        id="login-username"
-                                        placeholder="Username"
+                                        type="email"
+                                        name="email"
+                                        id="login-email"
+                                        placeholder="Email Address"
                                         onChange={handleOnChangeLogin}
-                                        value={loginValues.username}
+                                        value={loginValues.email}
                                     />
                                 </div>
                                 <div>
-                                    {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
                                     <input
                                         type="password"
                                         name="password"
@@ -127,7 +131,12 @@ export default function FormLogin({
                                         autoComplete="false"
                                     />
                                 </div>
-                                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
+                                <Button
+                                    type="submit"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    width={100}
+                                >
                                     Signin
                                 </Button>
                             </form>
@@ -139,7 +148,6 @@ export default function FormLogin({
                         <>
                             <form onSubmit={handleOnSubmitSignup}>
                                 <div>
-                                    {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
                                     <input
                                         type="text"
                                         name="firstname"
@@ -150,7 +158,6 @@ export default function FormLogin({
                                     />
                                 </div>
                                 <div>
-                                    {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
                                     <input
                                         type="text"
                                         name="lastname"
@@ -161,7 +168,6 @@ export default function FormLogin({
                                     />
                                 </div>
                                 <div>
-                                    {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
                                     <input
                                         type="email"
                                         name="email"
@@ -171,19 +177,8 @@ export default function FormLogin({
                                         value={signupValues.email}
                                     />
                                 </div>
+
                                 <div>
-                                    {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
-                                    <input
-                                        type="text"
-                                        name="username"
-                                        id="login-username"
-                                        placeholder="Username"
-                                        onChange={handleOnChangeSignup}
-                                        value={signupValues.username}
-                                    />
-                                </div>
-                                <div>
-                                    {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
                                     <input
                                         type="password"
                                         name="password"
@@ -195,7 +190,6 @@ export default function FormLogin({
                                     />
                                 </div>
                                 <div>
-                                    {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
                                     <input
                                         type="password"
                                         name="repeated_password"
@@ -206,7 +200,12 @@ export default function FormLogin({
                                         autoComplete="false"
                                     />
                                 </div>
-                                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
+                                <Button
+                                    type="submit"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    width={100}
+                                >
                                     Signup
                                 </Button>
                             </form>

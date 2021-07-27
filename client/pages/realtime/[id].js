@@ -12,6 +12,7 @@ import SensorStatusManage from "../../components/SensorStatusManage";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
+import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 const Container = styled.div`
     grid-auto-rows: 200px;
@@ -122,40 +123,30 @@ export default function DashboardContainer({ sensorsProps }) {
     );
 }
 
-export async function getStaticPaths() {
-    const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
-    const devicesIds = data.map((device) => {
+export async function getServerSideProps(context) {
+    const { req, params } = context;
+    const { token } = getAppCookies(req);
+    const profile = token ? verifyToken(token.split(" ")[1]) : "";
+    console.log("profile-RealTime[id]: ", profile);
+
+    if (!profile) {
+        console.log("Redirect from RealTime[id] to Login ");
         return {
-            params: {
-                id: device._id,
+            redirect: {
+                permanent: false,
+                destination: "/",
             },
         };
-    });
-
-    return {
-        paths: devicesIds,
-        fallback: true,
-    };
-}
-
-export async function getStaticProps({ params }) {
-    const { data, statusCode, message } = await ApiRequestUtil(`/sensors/${params.id}`, "GET");
-    console.log("getStaticProps: ", data);
-
-    // If The data empty, it's gonna shows the 404 Page (pages/404.js) (notFound: true)
-    // Or redirect its gonna send you to the path
-    if (data.length === 0) {
+    } else {
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/sensors/${params.id}`,
+            "GET"
+        );
+        console.log("getServerSideProps: ", data);
         return {
-            notFound: true,
-            // redirect: { destination: "/posts", permanent: true },
+            props: {
+                sensorsProps: data,
+            },
         };
     }
-    return {
-        props: {
-            sensorsProps: data,
-        },
-        // Re-generate the post at most once per second
-        // if a request comes in
-        revalidate: 60,
-    };
 }

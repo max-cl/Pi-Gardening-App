@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
+import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 // Components
 import Navbar from "../../components/NavBar";
@@ -42,30 +43,60 @@ export default function Device({ deviceProps }) {
         status: false,
     });
     const [sensors, setSensors] = useState([]);
-    const [newSensor, setNewSensor] = useState({ name: "", type: "", status: false, icon: "", signValue: "" });
-    const [sensor, setSensor] = useState({ name: "", type: "", status: false, icon: "", signValue: "" });
-    const [responseApi, setResponseApi] = useState({ statusCode: 0, serverMessage: "" });
+    const [newSensor, setNewSensor] = useState({
+        name: "",
+        type: "",
+        status: false,
+        icon: "",
+        signValue: "",
+    });
+    const [sensor, setSensor] = useState({
+        name: "",
+        type: "",
+        status: false,
+        icon: "",
+        signValue: "",
+    });
+    const [responseApi, setResponseApi] = useState({
+        statusCode: 0,
+        serverMessage: "",
+    });
 
     /** Device */
-    const onChangeDevice = (event) => setDevice({ ...device, [event.target.name]: event.target.value });
-    const onChangeStatusDevice = (event) => setDevice({ ...device, status: event.target.checked });
+    const onChangeDevice = (event) =>
+        setDevice({ ...device, [event.target.name]: event.target.value });
+    const onChangeStatusDevice = (event) =>
+        setDevice({ ...device, status: event.target.checked });
     const UpdateDevice = async (event) => {
         event.preventDefault();
         console.log("device Update: ", device);
-        const { data, statusCode, message } = await ApiRequestUtil(`/devices/${id}`, "PUT", device);
-        console.log("🚀 ~ UpdateDevice ~ result", { data, statusCode, message });
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/devices/${id}`,
+            "PUT",
+            device
+        );
+        console.log("🚀 ~ UpdateDevice ~ result", {
+            data,
+            statusCode,
+            message,
+        });
         setResponseApi({ statusCode, serverMessage: message });
     };
 
     /** Sensor */
-    const onChangeNewSensor = (event) => setNewSensor({ ...newSensor, [event.target.name]: event.target.value });
+    const onChangeNewSensor = (event) =>
+        setNewSensor({ ...newSensor, [event.target.name]: event.target.value });
     // const onChangeStatusSensor = (event) => setNewSensor({ ...newSensor, status: event.target.checked });
     const AddNewSensor = async (event) => {
         event.preventDefault();
-        const { data, statusCode, message } = await ApiRequestUtil(`/sensors`, "POST", {
-            deviceId: id,
-            newSensor,
-        });
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/sensors`,
+            "POST",
+            {
+                deviceId: id,
+                newSensor,
+            }
+        );
         console.log("AddNewSensor Added: ", { data, statusCode, message });
         let allSensors = [...sensors];
         allSensors.push(data);
@@ -75,25 +106,37 @@ export default function Device({ deviceProps }) {
 
     const removeSensor = async (sensorId) => {
         await ApiRequestUtil(`/sensors`, "DELETE", { deviceId: id, sensorId });
-        const filteredSensors = sensors.filter((filter) => filter._id !== sensorId);
+        const filteredSensors = sensors.filter(
+            (filter) => filter._id !== sensorId
+        );
         setSensors(filteredSensors);
     };
 
-    const onChangeSensorToUpdate = (event) => setSensor({ ...sensor, [event.target.name]: event.target.value });
-    const onChangeStatusSensorToUpdate = (event) => setSensor({ ...sensor, status: event.target.checked });
+    const onChangeSensorToUpdate = (event) =>
+        setSensor({ ...sensor, [event.target.name]: event.target.value });
+    const onChangeStatusSensorToUpdate = (event) =>
+        setSensor({ ...sensor, status: event.target.checked });
     const editSensor = (sensorId) => {
         setOpenModalUpdateSensor(!openModalUpdateSensor);
-        const sensorToUpdate = sensors.filter((sensor) => sensor._id === sensorId);
+        const sensorToUpdate = sensors.filter(
+            (sensor) => sensor._id === sensorId
+        );
         console.log("🚀 ~ editSensor ~ sensorToUpdate", sensorToUpdate);
         setSensor(sensorToUpdate[0]);
     };
     const UpdateSensor = async (event) => {
         event.preventDefault();
-        const { data, statusCode, message } = await ApiRequestUtil(`/sensors`, "PUT", {
-            deviceId: id,
-            sensor,
-        });
-        const sensorIndex = sensors.findIndex((element) => element._id == sensor._id);
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/sensors`,
+            "PUT",
+            {
+                deviceId: id,
+                sensor,
+            }
+        );
+        const sensorIndex = sensors.findIndex(
+            (element) => element._id == sensor._id
+        );
         let copySensors = [...sensors];
 
         copySensors[sensorIndex] = {
@@ -110,20 +153,27 @@ export default function Device({ deviceProps }) {
     };
 
     const handleMQTT = async (topic) => {
-        const { data, statusCode, message } = await ApiRequestUtil(`/mqtt`, "POST", {
-            topic: `${id}/${topic}`,
-            message: `Sent message to topic ${id}/${topic}`,
-        });
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/mqtt`,
+            "POST",
+            {
+                topic: `${id}/${topic}`,
+                message: `Sent message to topic ${id}/${topic}`,
+            }
+        );
         console.log(`Sent message to topic ${id}/${topic}`);
     };
 
     useEffect(() => {
+        console.log("useEffect : ", deviceProps);
         setDevice(deviceProps.device);
         setSensors(deviceProps.device.sensors);
-        setResponseApi({ statusCode: deviceProps.statusCode, serverMessage: deviceProps.message });
+        setResponseApi({
+            statusCode: deviceProps.statusCode,
+            serverMessage: deviceProps.message,
+        });
     }, [deviceProps]);
 
-    console.log("sensors states: ", sensors);
     return (
         <Container>
             <Navbar />
@@ -153,7 +203,11 @@ export default function Device({ deviceProps }) {
                 )}
 
                 {openModalAddSensor && (
-                    <Modal handleClose={() => setOpenModalAddSensor(!openModalAddSensor)}>
+                    <Modal
+                        handleClose={() =>
+                            setOpenModalAddSensor(!openModalAddSensor)
+                        }
+                    >
                         <FormAddSensor
                             title="Sensor Information"
                             handleOnChange={onChangeNewSensor}
@@ -166,7 +220,11 @@ export default function Device({ deviceProps }) {
                 )}
 
                 {openModalUpdateSensor && (
-                    <Modal handleClose={() => setOpenModalUpdateSensor(!openModalUpdateSensor)}>
+                    <Modal
+                        handleClose={() =>
+                            setOpenModalUpdateSensor(!openModalUpdateSensor)
+                        }
+                    >
                         <FormUpdateSensor
                             title="Sensor Information"
                             handleOnChange={onChangeSensorToUpdate}
@@ -193,40 +251,35 @@ export default function Device({ deviceProps }) {
     );
 }
 
-export async function getStaticPaths() {
-    const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
-    const devicesIds = data.map((device) => {
+export async function getServerSideProps(context) {
+    const { req, params } = context;
+    const { token } = getAppCookies(req);
+    const profile = token ? verifyToken(token.split(" ")[1]) : "";
+    console.log("profile-Devices[id]: ", profile);
+
+    if (!profile) {
+        console.log("Redirect from Devices[id] to Login ");
         return {
-            params: {
-                id: device._id,
+            redirect: {
+                permanent: false,
+                destination: "/",
             },
         };
-    });
-
-    return {
-        paths: devicesIds,
-        fallback: true,
-    };
-}
-
-export async function getStaticProps({ params }) {
-    const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
-    const deviceById = data.filter((device) => device._id === params.id);
-
-    // If The data empty, it's gonna shows the 404 Page (pages/404.js) (notFound: true)
-    // Or redirect its gonna send you to the path
-    if (deviceById.length === 0) {
+    } else {
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/devices`,
+            "GET"
+        );
+        const deviceById = data.filter((device) => device._id === params.id);
+        console.log("getServerSideProps: ", {
+            device: deviceById[0],
+            statusCode,
+            message,
+        });
         return {
-            notFound: true,
-            // redirect: { destination: "/posts", permanent: true },
+            props: {
+                deviceProps: { device: deviceById[0], statusCode, message },
+            },
         };
     }
-    return {
-        props: {
-            deviceProps: { device: deviceById[0], statusCode, message },
-        },
-        // Re-generate the post at most once per second
-        // if a request comes in
-        revalidate: 60,
-    };
 }
