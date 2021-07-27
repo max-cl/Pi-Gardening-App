@@ -14,6 +14,7 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+require("./routes/auth.route")(app);
 require("./routes/sensors.route")(app);
 require("./routes/devices.route")(app);
 require("./routes/dashboard.route")(app);
