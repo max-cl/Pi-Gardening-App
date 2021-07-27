@@ -17,6 +17,7 @@ import {
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
+import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 const Container = styled.div`
     grid-auto-rows: 200px;
@@ -144,8 +145,25 @@ export default function DashboardContainer({ devicesProps }) {
     );
 }
 
-export async function getStaticProps(context) {
-    const data = await ApiRequestUtil(`/dashboard`, "GET");
-    console.log("getStaticProps: ", data);
-    return { props: { devicesProps: data }, revalidate: 60 };
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const { token } = getAppCookies(req);
+    const profile = token ? verifyToken(token.split(" ")[1]) : "";
+    console.log("profile-Dashboard: ", profile);
+
+    if (!profile) {
+        console.log("Redirect from Dashboard to Login ");
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/",
+            },
+        };
+    } else {
+        const data = await ApiRequestUtil(`/dashboard`, "GET");
+        console.log("getServerSideProps: ", data);
+        return {
+            props: { devicesProps: data },
+        };
+    }
 }

@@ -10,6 +10,7 @@ import TableDevices from "../../components/TableDevices";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
+import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 const Container = styled.div`
     overflow: hidden;
@@ -25,14 +26,28 @@ const Content = styled.div`
 export default function DevicesContainer({ devicesProps }) {
     const [devices, setDevices] = useState([]);
     const [openModal, setOpenModal] = useState(false);
-    const [newDevice, setNewDevice] = useState({ hostname: "", ipAddress: "", type: "", status: false, sensors: [] });
-    const [responseApi, setResponseApi] = useState({ statusCode: 0, serverMessage: "" });
+    const [newDevice, setNewDevice] = useState({
+        hostname: "",
+        ipAddress: "",
+        type: "",
+        status: false,
+        sensors: [],
+    });
+    const [responseApi, setResponseApi] = useState({
+        statusCode: 0,
+        serverMessage: "",
+    });
 
-    const onChangeNewDevice = (event) => setNewDevice({ ...newDevice, [event.target.name]: event.target.value });
+    const onChangeNewDevice = (event) =>
+        setNewDevice({ ...newDevice, [event.target.name]: event.target.value });
 
     const AddNewDevice = async (event) => {
         event.preventDefault();
-        const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "POST", newDevice);
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/devices`,
+            "POST",
+            newDevice
+        );
         console.log("result: ", { data, statusCode, message });
         setResponseApi({ statusCode, serverMessage: message });
         let allDevices = [...devices];
@@ -42,7 +57,9 @@ export default function DevicesContainer({ devicesProps }) {
 
     const removeDevice = async (deviceId) => {
         await ApiRequestUtil(`/devices/${deviceId}`, "DELETE");
-        const filteredDevices = devices.filter((filter) => filter._id !== deviceId);
+        const filteredDevices = devices.filter(
+            (filter) => filter._id !== deviceId
+        );
         setDevices(filteredDevices);
     };
 
@@ -75,8 +92,17 @@ export default function DevicesContainer({ devicesProps }) {
                         removeDevice={removeDevice}
                         addDevice={() => {
                             setOpenModal(!openModal);
-                            setNewDevice({ hostname: "", ipAddress: "", type: "", status: false, sensors: [] });
-                            setResponseApi({ statusCode: 0, serverMessage: "" });
+                            setNewDevice({
+                                hostname: "",
+                                ipAddress: "",
+                                type: "",
+                                status: false,
+                                sensors: [],
+                            });
+                            setResponseApi({
+                                statusCode: 0,
+                                serverMessage: "",
+                            });
                         }}
                     />
                 )}
@@ -85,8 +111,28 @@ export default function DevicesContainer({ devicesProps }) {
     );
 }
 
-export async function getStaticProps(context) {
-    const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
-    console.log("getStaticProps: ", data);
-    return { props: { devicesProps: data }, revalidate: 60 };
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const { token } = getAppCookies(req);
+    const profile = token ? verifyToken(token.split(" ")[1]) : "";
+    console.log("profile-Devices: ", profile);
+
+    if (!profile) {
+        console.log("Redirect from Devices to Login ");
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/",
+            },
+        };
+    } else {
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/devices`,
+            "GET"
+        );
+        console.log("getServerSideProps: ", data);
+        return {
+            props: { devicesProps: data },
+        };
+    }
 }

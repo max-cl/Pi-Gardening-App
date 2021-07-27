@@ -9,6 +9,7 @@ import { Button } from "../../components/Common";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
+import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 export const Container = styled.div`
     margin: 2em;
@@ -46,7 +47,12 @@ export default function DashboardContainer({ devicesProps }) {
 
     const handleChange = (e) => {
         console.log("Device Selected!!: ", e.target.value);
-        setDeviceSelected({ value: e.target.value === "0" ? parseInt(e.target.value) : e.target.value });
+        setDeviceSelected({
+            value:
+                e.target.value === "0"
+                    ? parseInt(e.target.value)
+                    : e.target.value,
+        });
     };
 
     return (
@@ -60,10 +66,15 @@ export default function DashboardContainer({ devicesProps }) {
                         <div>
                             <label for="devices">Choose a device</label>
                         </div>
-                        <select value={deviceSelected.value} onChange={handleChange}>
+                        <select
+                            value={deviceSelected.value}
+                            onChange={handleChange}
+                        >
                             <option value={0}>Devices</option>
                             {devices.map((option) => (
-                                <option value={option._id}>{option.hostname}</option>
+                                <option value={option._id}>
+                                    {option.hostname}
+                                </option>
                             ))}
                         </select>
                         {deviceSelected.value !== 0 && (
@@ -87,8 +98,28 @@ export default function DashboardContainer({ devicesProps }) {
     );
 }
 
-export async function getStaticProps(context) {
-    const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
-    console.log("getStaticProps: ", data);
-    return { props: { devicesProps: data }, revalidate: 60 };
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const { token } = getAppCookies(req);
+    const profile = token ? verifyToken(token.split(" ")[1]) : "";
+    console.log("profile-RealTime: ", profile);
+
+    if (!profile) {
+        console.log("Redirect from RealTime to Login ");
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/",
+            },
+        };
+    } else {
+        const { data, statusCode, message } = await ApiRequestUtil(
+            `/devices`,
+            "GET"
+        );
+        console.log("getServerSideProps: ", data);
+        return {
+            props: { devicesProps: data },
+        };
+    }
 }
