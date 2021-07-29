@@ -1,6 +1,6 @@
 // Components
-import LoginContainer from "../components/Containers/Login";
+import HomeContainer from "../components/Containers/Home";
 
-export default function Home() {
-    return <LoginContainer />;
+export default function App() {
+    return <HomeContainer />;
 }

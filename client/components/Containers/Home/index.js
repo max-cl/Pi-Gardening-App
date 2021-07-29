@@ -3,16 +3,17 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
 // Components
-import FormLogin from "../../FormLogin";
+import FormHome from "../../FormHome";
 import { Circle1, Circle2 } from "../../Common";
 
 // Utils
 import { ApiRequestUtil } from "../../../util/ApiRequestUtil";
 
-export default function Login() {
+export default function HomeContainer() {
     // Router
     const router = useRouter();
     // States
+    const [isLogin, setIsLogin] = useState(true);
     const [loginValues, setLoginValues] = useState({
         email: "",
         password: "",
@@ -87,7 +88,9 @@ export default function Login() {
 
     return (
         <>
-            <FormLogin
+            <FormHome
+                isLogin={isLogin}
+                handleIsLogin={() => setIsLogin(!isLogin)}
                 handleOnSubmitLogin={handleOnSubmitLogin}
                 handleOnChangeLogin={handleOnChangeLogin}
                 handleOnSubmitSignup={handleOnSubmitSignup}

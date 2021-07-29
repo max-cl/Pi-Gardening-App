@@ -8,6 +8,7 @@ import { Table } from "./Table";
 import FormContainer from "./FormContainer";
 import { DeviceStatusLigth } from "./DeviceStatusLigth";
 import { ServerMessage } from "./ServerMessage";
+import { ErrorMessage } from "./ErrorMessage";
 
 export {
     Button,
@@ -21,4 +22,5 @@ export {
     FormContainer,
     DeviceStatusLigth,
     ServerMessage,
+    ErrorMessage,
 };
