@@ -105,11 +105,7 @@ export default function FormLogin({
                     {isLogin ? (
                         <>
                             <form onSubmit={handleOnSubmitLogin}>
-                                {formMessage.status === "error" && (
-                                    <ErrorMessage>
-                                        {formMessage.error}
-                                    </ErrorMessage>
-                                )}
+                                {formMessage.status === "error" && <ErrorMessage>{formMessage.error}</ErrorMessage>}
                                 <div>
                                     <input
                                         type="email"
@@ -131,12 +127,7 @@ export default function FormLogin({
                                         autoComplete="false"
                                     />
                                 </div>
-                                <Button
-                                    type="submit"
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    width={100}
-                                >
+                                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
                                     Signin
                                 </Button>
                             </form>
@@ -147,6 +138,7 @@ export default function FormLogin({
                     ) : (
                         <>
                             <form onSubmit={handleOnSubmitSignup}>
+                                {formMessage.status === "error" && <ErrorMessage>{formMessage.error}</ErrorMessage>}
                                 <div>
                                     <input
                                         type="text"
@@ -200,12 +192,7 @@ export default function FormLogin({
                                         autoComplete="false"
                                     />
                                 </div>
-                                <Button
-                                    type="submit"
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    width={100}
-                                >
+                                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
                                     Signup
                                 </Button>
                             </form>

@@ -38,20 +38,11 @@ export default function Login() {
     const handleOnSubmitLogin = async (event) => {
         try {
             event.preventDefault();
-            let data = { ...loginValues };
-            /* email */
-            data = { ...data, email: loginValues.email || "" };
-            /* password */
-            data = { ...data, password: loginValues.password || "" };
-            // Call an external API endpoint to get posts.
-            // You can use any data fetching library
             setLoading(!loading);
-            const result = await ApiRequestUtil(`/auth`, "POST", data);
+            const result = await ApiRequestUtil(`/auth/signin`, "POST", loginValues);
 
             if (result.success && result.token) {
                 Cookies.set("token", result.token);
-                // window.location.href = referer ? referer : "/";
-                // const pathUrl = referer ? referer.lastIndexOf("/") : "/";
                 console.log("resultSuccessLogin: ", result);
                 router.push("/dashboard");
             } else {
@@ -65,9 +56,25 @@ export default function Login() {
         }
     };
 
-    const handleOnSubmitSignup = (event) => {
-        event.preventDefault();
-        console.log("Submit: ", signupValues);
+    const handleOnSubmitSignup = async (event) => {
+        try {
+            event.preventDefault();
+            setLoading(!loading);
+            const result = await ApiRequestUtil(`/auth/signup`, "POST", signupValues);
+
+            if (result.success && result.token) {
+                Cookies.set("token", result.token);
+                console.log("resultSuccessSignUp: ", result);
+                router.push("/dashboard");
+            } else {
+                setFormMessage(result);
+                console.log("resulFailedSignUp: ", result);
+            }
+            setLoading(false);
+            console.log("Submit: ", signupValues);
+        } catch (error) {
+            console.error("Error:", error);
+        }
     };
 
     const handleOnChangeSignup = (event) => {
