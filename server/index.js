@@ -36,7 +36,8 @@ io.on("connection", (socket) => {
     let deviceId = socket.handshake.query["deviceId"];
     console.log("Socket Info: ", deviceId);
     console.log("Nro. of Clients connected: ", io.engine.clientsCount);
-    console.log("New client connected"), setInterval(() => getRealTimeSensorData(socket, deviceId), interval);
+    console.log("New client connected"),
+        setInterval(() => getRealTimeSensorData(socket, deviceId), interval);
     socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
@@ -68,7 +69,10 @@ const getRealTimeSensorData = async (socket, deviceId) => {
             let result = [];
             for (let i = 0; i < dataDevice[0].sensors.length; i++) {
                 for (let j = 0; j < realTimeData.length; j++) {
-                    if (`${dataDevice[0].sensors[i]._id}` == `${realTimeData[j]._id}`) {
+                    if (
+                        `${dataDevice[0].sensors[i]._id}` ==
+                        `${realTimeData[j]._id}`
+                    ) {
                         result.push({
                             sensorId: realTimeData[j]._id,
                             date: realTimeData[j].date,
@@ -86,11 +90,5 @@ const getRealTimeSensorData = async (socket, deviceId) => {
         console.error(`Error: ${error.code}`);
     }
 };
-
-// app.get("/test", async (req, res) => {
-//     const { db } = await connectToDatabase();
-//     const sensorData = await db.collection("raw_data").find({}).sort({ _id: -1 }).limit(1).toArray();
-//     res.json({ data: sensorData });
-// });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
