@@ -39,16 +39,17 @@ export const Navigation = () => (
 const Sections = [
     {
         id: 1,
-        sectionName: "Real-Time",
-        path: "/realtime",
-        handleClick: () => console.log("Real-Time Section"),
-    },
-    {
-        id: 2,
         sectionName: "Dashboard",
         path: "/dashboard",
         handleClick: () => console.log("Dashboard Section"),
     },
+    {
+        id: 2,
+        sectionName: "Real-Time",
+        path: "/realtime",
+        handleClick: () => console.log("Real-Time Section"),
+    },
+
     {
         id: 3,
         sectionName: "Devices",
