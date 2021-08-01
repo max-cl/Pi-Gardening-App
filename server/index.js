@@ -28,17 +28,18 @@ const io = socketIO(server, {
     },
 });
 
-let interval = 5000;
-io.on("connection", (socket) => {
-    if (interval) {
-        clearInterval(interval);
-    }
-    let deviceId = socket.handshake.query["deviceId"];
-    console.log("Socket Info: ", deviceId);
-    console.log("Nro. of Clients connected: ", io.engine.clientsCount);
-    console.log("New client connected"),
-        setInterval(() => getRealTimeSensorData(socket, deviceId), interval);
-    socket.on("disconnect", () => console.log("Client disconnected"));
+let interval = 10000;
+let numClients = 0;
+io.on("connection", function (socket) {
+    numClients++;
+    const deviceId = socket.handshake.query["deviceId"];
+    // const numClients = io.engine.clientsCount;
+    console.log("[Emit] Connected clients: ", numClients);
+    setInterval(() => getRealTimeSensorData(socket, deviceId), interval);
+    socket.on("disconnect", function () {
+        numClients--;
+        console.log("Disconnect] Connected clients:", numClients);
+    });
 });
 
 const getRealTimeSensorData = async (socket, deviceId) => {
@@ -69,10 +70,7 @@ const getRealTimeSensorData = async (socket, deviceId) => {
             let result = [];
             for (let i = 0; i < dataDevice[0].sensors.length; i++) {
                 for (let j = 0; j < realTimeData.length; j++) {
-                    if (
-                        `${dataDevice[0].sensors[i]._id}` ==
-                        `${realTimeData[j]._id}`
-                    ) {
+                    if (`${dataDevice[0].sensors[i]._id}` == `${realTimeData[j]._id}`) {
                         result.push({
                             sensorId: realTimeData[j]._id,
                             date: realTimeData[j].date,
