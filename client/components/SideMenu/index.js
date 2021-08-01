@@ -32,7 +32,8 @@ const Nav = styled(motion.nav)`
     left: 0;
     bottom: 0;
     width: 300px;
-    z-index: 1002;
+    /* z-index: 1002; */
+    z-index: ${(props) => (props.open ? 1002 : 0)};
 `;
 
 const Drawer = styled(motion.div)`
@@ -50,7 +51,7 @@ export default function SideMenu() {
     const { height } = useDimensions(containerRef);
 
     return (
-        <Nav initial={false} animate={isOpen ? "open" : "closed"} custom={height} ref={containerRef}>
+        <Nav initial={false} animate={isOpen ? "open" : "closed"} custom={height} ref={containerRef} open={isOpen}>
             <Drawer variants={sidebar} />
             {isOpen && <Navigation />}
             <MenuToggle toggle={() => toggleOpen()} />
