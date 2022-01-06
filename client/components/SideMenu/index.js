@@ -32,7 +32,6 @@ const Nav = styled(motion.nav)`
     left: 0;
     bottom: 0;
     width: 300px;
-    /* z-index: 1002; */
     z-index: ${(props) => (props.open ? 1002 : 0)};
 `;
 

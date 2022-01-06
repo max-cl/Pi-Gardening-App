@@ -7,6 +7,11 @@ export const theme = {
         tertiary: "#f9f9f9",
         bgColor: "#252837",
         glassColor: "linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3))",
+        success: "#22bb33",
+        error: "#bb2124",
+        warning: "#f0ad4e",
+        white: "#ffffff",
+        border: "#999999",
     },
     boxShadow: "10px 10px 5px 0px rgba(0,0,0,0.75)",
     borderRadiusCard: "4px",
@@ -27,6 +32,7 @@ export const GlobalStyle = createGlobalStyle`
         /* overflow: hidden; */
         overflow-y: auto;
         overflow-x: hidden;
+        font-size: 16px;
     }
 
     a {
@@ -69,13 +75,12 @@ export const GlobalStyle = createGlobalStyle`
         } 
         &:hover {
             color: white;
-            background: #2e3346;
+            background: ${theme.colors.secondary};
             border: 1px solid ${theme.colors.primary}
         }
 }   
 
     button {
-        /* width: 100%; */
         padding: 0.5em;
         margin: 0.4em 0;
         background: ${theme.colors.primary};
@@ -83,7 +88,7 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: bold;
         text-transform: uppercase;
         border: none;
-        border-radius: 0.1em;
+        border-radius: 0.1rem;
     }
 
 `;

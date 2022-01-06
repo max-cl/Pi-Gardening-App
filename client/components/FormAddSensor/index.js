@@ -1,13 +1,6 @@
-import { Button, FlipSwitch, FormContainer, ServerMessage } from "../Common";
+import { Button, FormContainer, ServerMessage } from "../Common";
 
-export default function FormAddSensor({
-    title,
-    handleOnChange,
-    handleOnSubmit,
-    newSensor,
-    // onChangeStatus,
-    serverMessage,
-}) {
+export default function FormAddSensor({ title, handleOnChange, handleOnSubmit, newSensor, serverMessage }) {
     return (
         <FormContainer>
             <h2>{title}</h2>
@@ -15,36 +8,15 @@ export default function FormAddSensor({
             <form onSubmit={handleOnSubmit}>
                 <div>
                     {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Name"
-                        onChange={handleOnChange}
-                        value={newSensor.name}
-                    />
+                    <input type="text" name="name" id="name" placeholder="Name" onChange={handleOnChange} value={newSensor.name} />
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
-                    <input
-                        type="text"
-                        name="type"
-                        id="type"
-                        placeholder="Sensor Type"
-                        onChange={handleOnChange}
-                        value={newSensor.type}
-                    />
+                    <input type="text" name="type" id="type" placeholder="Sensor Type" onChange={handleOnChange} value={newSensor.type} />
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
-                    <input
-                        type="text"
-                        name="icon"
-                        id="icon"
-                        placeholder="Icon"
-                        onChange={handleOnChange}
-                        value={newSensor.icon}
-                    />
+                    <input type="text" name="icon" id="icon" placeholder="Icon" onChange={handleOnChange} value={newSensor.icon} />
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
@@ -57,9 +29,7 @@ export default function FormAddSensor({
                         value={newSensor.signValue}
                     />
                 </div>
-                {/* <div>
-                    <FlipSwitch isChecked={newSensor.status} handleOnChange={onChangeStatus} />
-                </div> */}
+
                 <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
                     Add Sensor
                 </Button>

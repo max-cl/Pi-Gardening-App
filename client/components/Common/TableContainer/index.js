@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 export const Container = styled(motion.div)`
-    margin: 2em;
+    margin: 2rem;
     padding: 0;
     background: ${(props) => props.theme.colors.tertiary};
     border-radius: ${(props) => props.theme.borderRadiusCard};
@@ -12,8 +12,8 @@ export const Container = styled(motion.div)`
 
     @media only screen and (min-width: 1000px) {
         margin: 0;
-        margin-top: 2em;
-        padding: 2.4em;
+        margin-top: 2rem;
+        padding: 2.5rem;
     }
 `;
 

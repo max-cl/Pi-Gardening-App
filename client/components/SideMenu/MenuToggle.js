@@ -2,17 +2,15 @@ import * as React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-const Path = (props) => (
-    <motion.path fill="transparent" strokeWidth="3" stroke="#FFFFFF" strokeLinecap="round" {...props} />
-);
+const Path = (props) => <motion.path fill="transparent" strokeWidth="3" stroke="#FFFFFF" strokeLinecap="round" {...props} />;
 
 const Button = styled.button`
     outline: none;
     border: none;
     cursor: pointer;
     position: absolute;
-    top: 18px;
-    left: 15px;
+    top: 1rem;
+    left: 1rem;
     width: 50px;
     height: 50px;
     border-radius: 50%;

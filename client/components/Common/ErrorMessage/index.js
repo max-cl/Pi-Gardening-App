@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 const Message = styled.span`
-    color: rgb(255, 149, 149);
-    font-size: 0.8em;
+    color: ${(props) => props.theme.colors.error};
+    font-size: 0.75rem;
+    font-weight: bold;
     display: block;
-    margin-top: -2px;
+    text-transform: uppercase;
 `;
 
 export const ErrorMessage = ({ children }) => {

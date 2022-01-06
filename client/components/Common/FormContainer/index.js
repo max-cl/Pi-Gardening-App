@@ -1,16 +1,28 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const Container = styled(motion.div)`
-    width: 80%;
-    border: 3px solid ${(props) => props.theme.colors.primary};
-    border-radius: 0.8em;
-    padding: 6em 3em;
+const Container = styled.div.attrs((props) => ({
+    height: props.height || 376,
+}))`
+    width: 376px;
+    height: ${(props) => props.height}px;
+    border: 0.25rem solid ${(props) => props.theme.colors.primary};
+    border-radius: 0.5rem;
+    padding: 3rem 2rem;
     position: relative;
     z-index: 1;
     box-shadow: ${(props) => props.theme.boxShadow};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-    &:before {
+    h2 {
+        font-size: 1rem;
+        color: ${(props) => props.theme.colors.white};
+    }
+
+    /* &:before {
         content: "";
         background: ${(props) => props.theme.colors.glassColor};
         display: block;
@@ -21,25 +33,9 @@ const Container = styled(motion.div)`
         bottom: 0;
         opacity: 0.4;
         z-index: -1;
-    }
-
-    @media only screen and (min-width: 768px) {
-        width: 400px;
-    }
-
-    @media only screen and (min-width: 1024px) {
-        width: 440px;
-    }
-
-    @media only screen and (min-width: 1366px) {
-        width: 440px;
-    }
+    } */
 `;
 
-export default function FormContainer({ children }) {
-    return (
-        <Container animate={{ scale: 1.2 }} transition={{ duration: 1 }}>
-            {children}
-        </Container>
-    );
+export default function FormContainer({ height, children }) {
+    return <Container height={height}>{children}</Container>;
 }

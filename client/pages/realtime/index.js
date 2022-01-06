@@ -12,7 +12,7 @@ import { ApiRequestUtil } from "../../util/ApiRequestUtil";
 import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 export const Container = styled.div`
-    margin: 2em;
+    margin: 2rem;
     padding: 0;
     height: 76vh;
     display: flex;
@@ -26,13 +26,13 @@ export const Container = styled.div`
     select {
         width: 100%;
         height: 48px;
-        font-size: 18px;
+        font-size: 1rem;
     }
 
     @media only screen and (min-width: 1000px) {
         margin: 0;
-        margin-top: 2em;
-        padding: 2.4em;
+        margin-top: 2rem;
+        padding: 2.5rem;
     }
 `;
 
@@ -48,10 +48,7 @@ export default function DashboardContainer({ devicesProps }) {
     const handleChange = (e) => {
         console.log("Device Selected!!: ", e.target.value);
         setDeviceSelected({
-            value:
-                e.target.value === "0"
-                    ? parseInt(e.target.value)
-                    : e.target.value,
+            value: e.target.value === "0" ? parseInt(e.target.value) : e.target.value,
         });
     };
 
@@ -66,26 +63,16 @@ export default function DashboardContainer({ devicesProps }) {
                         <div>
                             <label for="devices">Choose a device</label>
                         </div>
-                        <select
-                            value={deviceSelected.value}
-                            onChange={handleChange}
-                        >
+                        <select value={deviceSelected.value} onChange={handleChange}>
                             <option value={0}>Devices</option>
                             {devices.map((option) => (
-                                <option value={option._id}>
-                                    {option.hostname}
-                                </option>
+                                <option value={option._id}>{option.hostname}</option>
                             ))}
                         </select>
                         {deviceSelected.value !== 0 && (
                             <Link href={`/realtime/${deviceSelected.value}`}>
                                 <a>
-                                    <Button
-                                        type="button"
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        width={100}
-                                    >
+                                    <Button type="button" width={100}>
                                         Check it
                                     </Button>
                                 </a>
@@ -113,10 +100,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/devices`,
-            "GET"
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
         console.log("getServerSideProps: ", data);
         return {
             props: { devicesProps: data },

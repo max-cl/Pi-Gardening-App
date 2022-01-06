@@ -23,11 +23,11 @@ const variants = {
 
 const Li = styled(motion.li)`
     list-style: none;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     display: flex;
     align-items: center;
     cursor: pointer;
-    color: white;
+    color: ${(props) => props.theme.colors.white};
 
     .active {
         font-weight: bold;
@@ -39,16 +39,16 @@ const Li = styled(motion.li)`
         height: 20px;
         border-radius: 50%;
         flex: 40px 0;
-        margin-right: 20px;
-        border: 2px solid ${(props) => props.theme.colors.primary};
+        margin-right: 1.25rem;
+        border: 0.125rem solid ${(props) => props.theme.colors.primary};
     }
 
     .text-placeholder {
-        border-radius: 5px;
+        border-radius: 0.25rem;
         width: 200px;
         height: 40px;
         flex: 1;
-        font-size: 1.5em;
+        font-size: 1.5rem;
     }
 `;
 
@@ -58,17 +58,8 @@ export const MenuItem = ({ id, sectionName, path, handleClick }) => {
     return (
         <Link href={`${path}`}>
             <a>
-                <Li
-                    variants={variants}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                >
-                    <div
-                        onClick={handleClick}
-                        className={`text-placeholder ${
-                            router.asPath === path ? "active" : ""
-                        }`}
-                    >
+                <Li variants={variants} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                    <div onClick={handleClick} className={`text-placeholder ${router.asPath === path ? "active" : ""}`}>
                         {sectionName}
                     </div>
                 </Li>

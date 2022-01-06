@@ -12,15 +12,15 @@ const Container = styled.div`
     display: grid !important;
     grid-template-columns: repeat(2, 50%);
     grid-template-rows: repeat(2, 50%);
-    grid-gap: 8px;
-    background-color: #2e3346 !important;
+    grid-gap: 0.5rem;
+    background-color: ${(props) => props.theme.colors.secondary} !important;
     overflow: hidden;
     position: relative;
 `;
 
 const Content = styled.div`
     text-align: center;
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors.white};
     height: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -29,30 +29,32 @@ const Content = styled.div`
 
     h5 {
         width: 100%;
-        color: #2e3346;
+        color: ${(props) => props.theme.colors.secondary};
         font-weight: 900;
     }
 
     p {
         width: 100%;
-        color: #2e3346;
+        color: ${(props) => props.theme.colors.secondary};
         font-weight: 800;
-        font-size: 32px;
+        font-size: 2rem;
     }
 
     span {
-        font-size: 14px;
+        font-size: 1.75rem;
     }
 `;
 
 const ButtonGetData = styled(Button)`
     position: absolute;
     left: 40%;
-    padding: 32px;
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    padding: 2rem;
+    box-shadow: ${(props) => props.theme.boxShadow};
     border-radius: 50%;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 1rem;
+    width: 120px;
+    height: 120px;
 `;
 
 export default function SensorDataManage({ deviceId }) {
@@ -72,13 +74,7 @@ export default function SensorDataManage({ deviceId }) {
                 sensorData.map((data, index) => (
                     <Content key={index}>
                         <h5>{data.sensor}</h5>
-                        <Image
-                            className="icon"
-                            src={`/images/${data.icon}.svg`}
-                            alt={`${data.sensor}`}
-                            width={80}
-                            height={80}
-                        />
+                        <Image className="icon" src={`/images/${data.icon}.svg`} alt={`${data.sensor}`} width={80} height={80} />
                         <p>
                             {data.value}
                             <span>{data.signValue}</span>

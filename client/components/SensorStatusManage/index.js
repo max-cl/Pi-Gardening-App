@@ -13,14 +13,14 @@ const Container = styled.div`
     display: grid !important;
     grid-template-columns: repeat(3, 33%);
     grid-template-rows: repeat(2, 50%);
-    grid-gap: 8px;
-    background-color: #2e3346 !important;
+    grid-gap: 0.5rem;
+    background-color: ${(props) => props.theme.colors.secondary} !important;
     overflow: hidden;
 `;
 
 const Content = styled.div`
     text-align: center;
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors.white};
     height: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -29,7 +29,7 @@ const Content = styled.div`
 
     h5 {
         width: 100%;
-        color: #2e3346;
+        color: ${(props) => props.theme.colors.secondary};
         font-weight: 900;
     }
 `;
@@ -45,7 +45,7 @@ export default memo(function SensorStatusManage({ data, deviceId }) {
             status: event.target.checked,
         };
 
-        const { data, statusCode, message } = await ApiRequestUtil(`/sensors/update-status`, "PUT", {
+        await ApiRequestUtil(`/sensors/update-status`, "PUT", {
             deviceId,
             sensor: { _id: copySensors[sensorIndex]._id, status: copySensors[sensorIndex].status },
         });
@@ -63,19 +63,9 @@ export default memo(function SensorStatusManage({ data, deviceId }) {
                 sensorsData.sensors.map((data, index) => (
                     <Content key={index}>
                         <h5>{data.type}</h5>
-                        <Image
-                            className="icon"
-                            src={`/images/${data.icon}.svg`}
-                            alt={`${data.sensor}`}
-                            width={80}
-                            height={80}
-                        />
+                        <Image className="icon" src={`/images/${data.icon}.svg`} alt={`${data.sensor}`} width={80} height={80} />
 
-                        <FlipSwitch
-                            id={data._id}
-                            isChecked={data.status}
-                            handleOnChange={(e) => onChangeSensorStatus(data._id, e)}
-                        />
+                        <FlipSwitch id={data._id} isChecked={data.status} handleOnChange={(e) => onChangeSensorStatus(data._id, e)} />
                     </Content>
                 ))}
         </Container>

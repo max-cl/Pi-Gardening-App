@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // Components
-import { TableContainer, Table, DeviceStatusLigth } from "../Common";
+import { TableContainer, Table } from "../Common";
 
 export default function TableDeviceDetail({ device, handleOnClick, handleMQTT }) {
     return (

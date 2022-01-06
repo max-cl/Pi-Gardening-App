@@ -16,9 +16,9 @@ const variants = {
 };
 
 const Ul = styled(motion.ul)`
-    padding: 25px;
+    padding: 1.5rem;
     position: absolute;
-    top: 100px;
+    top: 6rem;
     width: 230px;
 `;
 
@@ -55,12 +55,6 @@ const Sections = [
         sectionName: "Devices",
         path: "/devices",
         handleClick: () => console.log("Devices Section"),
-    },
-    {
-        id: 4,
-        sectionName: "Profile",
-        path: "/profile",
-        handleClick: () => console.log("Profile Section"),
     },
     {
         id: 99,

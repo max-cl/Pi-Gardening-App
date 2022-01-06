@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const Table = styled.table`
     width: unset;
-    margin: 0.9em;
-    font-size: 13px;
+    margin: 1rem;
+    font-size: 0.75rem;
     text-align: center;
     border-collapse: collapse;
     background: ${(props) => props.theme.colors.tertiary};
 
     tr {
-        border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+        border-bottom: 0.0625rem solid ${(props) => props.theme.colors.secondary};
     }
 
     th {
@@ -17,7 +17,7 @@ export const Table = styled.table`
         text-transform: uppercase;
     }
     td {
-        padding: 0.3em;
+        padding: 0.5rem;
     }
 
     .icon {

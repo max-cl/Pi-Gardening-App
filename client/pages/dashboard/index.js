@@ -4,16 +4,7 @@ import styled from "styled-components";
 // Components
 import Navbar from "../../components/NavBar";
 import SideMenu from "../../components/SideMenu";
-import {
-    BarChart,
-    DoughnutChart,
-    LineChart,
-    PieChart,
-    PolarChart,
-    RadarChart,
-    ScatterChart,
-    BubbleChart,
-} from "../../components/Charts";
+import { BarChart, DoughnutChart, LineChart, PieChart, PolarChart, RadarChart, ScatterChart, BubbleChart } from "../../components/Charts";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
@@ -29,8 +20,8 @@ const Container = styled.div`
 
     @supports (grid-area: auto) {
         display: grid;
-        grid-column-gap: 10px;
-        grid-row-gap: 10px;
+        grid-column-gap: 0.25rem;
+        grid-row-gap: 0.25rem;
     }
 
     @media only screen and (min-width: 600px) {
@@ -94,7 +85,7 @@ const Container = styled.div`
 
     max-width: 100%;
     margin: 0 auto;
-    padding: 1em;
+    padding: 1rem;
 
     > div {
         display: flex;

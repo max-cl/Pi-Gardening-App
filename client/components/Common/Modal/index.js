@@ -33,8 +33,8 @@ const ContainerModal = styled.div`
 
 const IconContainer = styled.div`
     position: absolute;
-    top: 18px;
-    right: 15px;
+    top: 1rem;
+    right: 1rem;
 
     .icon {
         cursor: pointer;
@@ -49,15 +49,7 @@ export default function Modal({ children, handleClose }) {
     return (
         <ContainerModal>
             <IconContainer>
-                <Image
-                    className="icon"
-                    src="/images/close.svg"
-                    alt="Edit element"
-                    width={20}
-                    height={20}
-                    objectFit="cover"
-                    onClick={handleClose}
-                />
+                <Image className="icon" src="/images/close.svg" alt="Edit element" width={20} height={20} objectFit="cover" onClick={handleClose} />
             </IconContainer>
             {children}
         </ContainerModal>

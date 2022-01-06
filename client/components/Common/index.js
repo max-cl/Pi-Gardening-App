@@ -1,5 +1,4 @@
 import { Button } from "./Button";
-import { Circle1, Circle2 } from "./Circles";
 import { Spinner } from "./Spinner";
 import Modal from "./Modal";
 import FlipSwitch from "./FlipSwitch";
@@ -12,8 +11,6 @@ import { ErrorMessage } from "./ErrorMessage";
 
 export {
     Button,
-    Circle1,
-    Circle2,
     Spinner,
     Modal,
     FlipSwitch,

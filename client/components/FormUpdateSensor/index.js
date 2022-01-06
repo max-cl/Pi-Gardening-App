@@ -1,28 +1,19 @@
+import styled from "styled-components";
 import { Button, FlipSwitch, FormContainer, ServerMessage } from "../Common";
 
-export default function FormUpdateSensor({
-    title,
-    handleOnChange,
-    handleOnSubmit,
-    sensorToUpdate,
-    onChangeStatus,
-    serverMessage,
-}) {
+const Form = styled.form`
+    width: 100%;
+`;
+
+export default function FormUpdateSensor({ title, handleOnChange, handleOnSubmit, sensorToUpdate, onChangeStatus, serverMessage }) {
     return (
         <FormContainer>
             <h2>{title}</h2>
             <ServerMessage>{serverMessage}</ServerMessage>
-            <form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnSubmit}>
                 <div>
                     {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Sensor"
-                        onChange={handleOnChange}
-                        value={sensorToUpdate.name}
-                    />
+                    <input type="text" name="name" id="name" placeholder="Sensor" onChange={handleOnChange} value={sensorToUpdate.name} />
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
@@ -37,14 +28,7 @@ export default function FormUpdateSensor({
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
-                    <input
-                        type="text"
-                        name="icon"
-                        id="icon"
-                        placeholder="Icon"
-                        onChange={handleOnChange}
-                        value={sensorToUpdate.icon}
-                    />
+                    <input type="text" name="icon" id="icon" placeholder="Icon" onChange={handleOnChange} value={sensorToUpdate.icon} />
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
@@ -64,7 +48,7 @@ export default function FormUpdateSensor({
                 <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
                     Confirm Update
                 </Button>
-            </form>
+            </Form>
         </FormContainer>
     );
 }

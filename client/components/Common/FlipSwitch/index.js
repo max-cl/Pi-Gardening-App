@@ -13,8 +13,8 @@ const Container = styled.div`
         display: block;
         overflow: hidden;
         cursor: pointer;
-        border: 2px solid #999999;
-        border-radius: 20px;
+        border: 0.125rem solid ${(props) => props.theme.colors.border};
+        border-radius: 1.25rem;
     }
     .onoffswitch-inner {
         display: block;
@@ -29,46 +29,43 @@ const Container = styled.div`
         width: 50%;
         height: 30px;
         padding: 0;
-        line-height: 30px;
-        font-size: 14px;
-        color: white;
-        font-family: Trebuchet, Arial, sans-serif;
+        line-height: 2rem;
+        font-size: 1rem;
+        color: ${(props) => props.theme.colors.white};
         font-weight: bold;
         box-sizing: border-box;
     }
     .onoffswitch-inner:before {
         content: "ON";
-        padding-left: 10px;
-        /* background-color: #34a7c1; */
+        padding-left: 0.75rem;
         background-color: green;
-        color: white;
+        color: ${(props) => props.theme.colors.white};
     }
     .onoffswitch-inner:after {
         content: "OFF";
-        padding-right: 10px;
+        padding-right: 0.75rem;
         background-color: red;
-        /* color: #999999; */
-        color: white;
+        color: ${(props) => props.theme.colors.white};
         text-align: right;
     }
     .onoffswitch-switch {
         display: block;
         width: 18px;
-        margin: 6px;
-        background: #ffffff;
+        margin: 0.5rem;
+        background: ${(props) => props.theme.colors.white};
         position: absolute;
         top: 0;
         bottom: 0;
-        right: 56px;
-        border: 2px solid #999999;
-        border-radius: 20px;
+        right: 3.5rem;
+        border: 0.125rem solid ${(props) => props.theme.colors.border};
+        border-radius: 1.25rem;
         transition: all 0.3s ease-in 0s;
     }
     .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
         margin-left: 0;
     }
     .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-        right: 0px;
+        right: 0;
     }
 `;
 

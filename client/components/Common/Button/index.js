@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const Button = styled(motion.button).attrs((props) => ({
+export const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
     width: props.width || 50,
     zIndex: props.zIndex || 1,

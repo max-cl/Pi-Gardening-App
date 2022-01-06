@@ -1,13 +1,46 @@
+import styled from "styled-components";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
 // Components
 import FormHome from "../../FormHome";
-import { Circle1, Circle2 } from "../../Common";
 
 // Utils
 import { ApiRequestUtil } from "../../../util/ApiRequestUtil";
+
+const Container = styled.div`
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`;
+
+const TitleContainer = styled.div`
+    width: 100%;
+    height: 24%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        font-size: 4rem;
+        padding: 0 0 2rem;
+    }
+
+    span {
+        color: ${(props) => props.theme.colors.primary};
+    }
+`;
+
+const FormContainer = styled.div`
+    height: 76%;
+`;
 
 export default function HomeContainer() {
     // Router
@@ -86,21 +119,31 @@ export default function HomeContainer() {
         console.log("onchange: ", signupValues);
     };
 
+    const handleIsLogin = () => {
+        setFormMessage({});
+        setIsLogin(!isLogin);
+    };
+
     return (
-        <>
-            <FormHome
-                isLogin={isLogin}
-                handleIsLogin={() => setIsLogin(!isLogin)}
-                handleOnSubmitLogin={handleOnSubmitLogin}
-                handleOnChangeLogin={handleOnChangeLogin}
-                handleOnSubmitSignup={handleOnSubmitSignup}
-                handleOnChangeSignup={handleOnChangeSignup}
-                loginValues={loginValues}
-                signupValues={signupValues}
-                formMessage={formMessage}
-            />
-            <Circle1 />
-            <Circle2 />
-        </>
+        <Container>
+            <TitleContainer>
+                <h1>
+                    PI<span>Gardenning</span>
+                </h1>
+            </TitleContainer>
+            <FormContainer>
+                <FormHome
+                    isLogin={isLogin}
+                    handleIsLogin={handleIsLogin}
+                    handleOnSubmitLogin={handleOnSubmitLogin}
+                    handleOnChangeLogin={handleOnChangeLogin}
+                    handleOnSubmitSignup={handleOnSubmitSignup}
+                    handleOnChangeSignup={handleOnChangeSignup}
+                    loginValues={loginValues}
+                    signupValues={signupValues}
+                    formMessage={formMessage}
+                />
+            </FormContainer>
+        </Container>
     );
 }

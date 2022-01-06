@@ -20,13 +20,12 @@ const Container = styled.div`
     > div {
         background: ${(props) => props.theme.colors.tertiary};
         border-radius: ${(props) => props.theme.borderRadiusCard};
-        box-shadow: ${(props) => props.theme.boxShadow};
     }
 
     @supports (grid-area: auto) {
         display: grid;
-        grid-column-gap: 10px;
-        grid-row-gap: 10px;
+        grid-column-gap: 0.25rem;
+        grid-row-gap: 0.25rem;
     }
 
     @media only screen and (min-width: 600px) {
@@ -57,7 +56,7 @@ const Container = styled.div`
 
     max-width: 100%;
     margin: 0 auto;
-    padding: 1em;
+    padding: 1rem;
 
     > div {
         display: flex;
@@ -138,10 +137,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/sensors/${params.id}`,
-            "GET"
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/sensors/${params.id}`, "GET");
         console.log("getServerSideProps: ", data);
         return {
             props: {
