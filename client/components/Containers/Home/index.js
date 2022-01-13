@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -130,7 +129,6 @@ export default function HomeContainer() {
     return (
         <Container>
             <TitleContainer>
-                {/* <Image className="icon" src={`/images/raspberrypi.svg`} alt={`raspberrypi`} width={80} height={80} /> */}
                 <h1>
                     Pi<span>Gardenning</span>
                 </h1>
