@@ -27,20 +27,11 @@ const Li = styled(motion.li)`
     display: flex;
     align-items: center;
     cursor: pointer;
-    color: ${(props) => props.theme.colors.white};
+    color: ${(props) => props.theme.colors.utility.white};
 
     .active {
         font-weight: bold;
-        color: ${(props) => props.theme.colors.primary};
-    }
-
-    .icon-placeholder {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        flex: 40px 0;
-        margin-right: 1.25rem;
-        border: 0.125rem solid ${(props) => props.theme.colors.primary};
+        color: ${(props) => props.theme.colors.ui.secondary};
     }
 
     .text-placeholder {

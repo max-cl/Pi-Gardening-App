@@ -6,10 +6,10 @@ export const Table = styled.table`
     font-size: 0.75rem;
     text-align: center;
     border-collapse: collapse;
-    background: ${(props) => props.theme.colors.tertiary};
+    background-color: ${(props) => props.theme.colors.utility.white};
 
     tr {
-        border-bottom: 0.0625rem solid ${(props) => props.theme.colors.secondary};
+        border-bottom: 0.0625rem solid ${(props) => props.theme.colors.ui.secondary};
     }
 
     th {

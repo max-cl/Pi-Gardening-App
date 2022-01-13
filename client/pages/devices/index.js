@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Components
 import Navbar from "../../components/NavBar";
 import SideMenu from "../../components/SideMenu";
-import { Spinner, Modal } from "../../components/Common";
+import { Spinner, Modal, Separator } from "../../components/Common";
 import FormAddDevice from "../../components/FormAddDevice";
 import TableDevices from "../../components/TableDevices";
 
@@ -38,16 +38,11 @@ export default function DevicesContainer({ devicesProps }) {
         serverMessage: "",
     });
 
-    const onChangeNewDevice = (event) =>
-        setNewDevice({ ...newDevice, [event.target.name]: event.target.value });
+    const onChangeNewDevice = (event) => setNewDevice({ ...newDevice, [event.target.name]: event.target.value });
 
     const AddNewDevice = async (event) => {
         event.preventDefault();
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/devices`,
-            "POST",
-            newDevice
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "POST", newDevice);
         console.log("result: ", { data, statusCode, message });
         setResponseApi({ statusCode, serverMessage: message });
         let allDevices = [...devices];
@@ -57,9 +52,7 @@ export default function DevicesContainer({ devicesProps }) {
 
     const removeDevice = async (deviceId) => {
         await ApiRequestUtil(`/devices/${deviceId}`, "DELETE");
-        const filteredDevices = devices.filter(
-            (filter) => filter._id !== deviceId
-        );
+        const filteredDevices = devices.filter((filter) => filter._id !== deviceId);
         setDevices(filteredDevices);
     };
 
@@ -71,6 +64,9 @@ export default function DevicesContainer({ devicesProps }) {
         <Container>
             <Navbar />
             <SideMenu />
+
+            <Separator />
+
             <Content>
                 {openModal && (
                     <Modal handleClose={() => setOpenModal(!openModal)}>
@@ -126,10 +122,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/devices`,
-            "GET"
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
         console.log("getServerSideProps: ", data);
         return {
             props: { devicesProps: data },

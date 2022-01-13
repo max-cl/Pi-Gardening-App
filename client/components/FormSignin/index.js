@@ -1,25 +1,26 @@
 import styled from "styled-components";
 // Components
-import { Button, ErrorMessage } from "../Common";
+import { Button, ErrorMessage, ButtonContainer } from "../Common";
 
 const Form = styled.form`
     width: 100%;
 `;
 
 const ForgotLink = styled.a`
-    color: ${(props) => props.theme.colors.white};
-    font-weight: lighter;
+    color: ${(props) => props.theme.colors.text.primary};
+    font-weight: ${(props) => props.theme.fontWeights.light};
     font-size: 0.75rem;
+    padding: 1rem 0 0;
 
     &:hover {
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
 export default function FormSignin({ handleOnSubmitLogin, formMessage, handleOnChangeLogin, loginValues }) {
     return (
         <>
-            <Form onSubmit={handleOnSubmitLogin}>
+            <Form onSubmit={handleOnSubmitLogin} autocomplete="off">
                 {formMessage.status === "error" && <ErrorMessage>{formMessage.error}</ErrorMessage>}
                 <div>
                     <input
@@ -42,9 +43,9 @@ export default function FormSignin({ handleOnSubmitLogin, formMessage, handleOnC
                         autoComplete="false"
                     />
                 </div>
-                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
-                    Signin
-                </Button>
+                <ButtonContainer>
+                    <Button type="submit">Signin</Button>
+                </ButtonContainer>
             </Form>
             <ForgotLink href="#">Forgot password?</ForgotLink>
         </>

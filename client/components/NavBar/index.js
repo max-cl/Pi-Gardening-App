@@ -2,9 +2,13 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const Container = styled.div`
-    background-color: ${(props) => props.theme.colors.secondary};
+    height: 72px;
+    background-color: ${(props) => props.theme.colors.ui.primary};
     padding: 1rem;
-    position: relative;
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    z-index: 1002;
 
     .container-logo {
         display: flex;
@@ -14,12 +18,12 @@ const Container = styled.div`
 
     .logo {
         text-transform: uppercase;
-        font-weight: bold;
-        color: ${(props) => props.theme.colors.white};
+        font-weight: ${(props) => props.theme.fontWeights.bold};
+        color: ${(props) => props.theme.colors.ui.secondary};
         font-size: 1.25rem;
 
         span {
-            color: ${(props) => props.theme.colors.primary};
+            color: ${(props) => props.theme.colors.utility.white};
         }
     }
 `;

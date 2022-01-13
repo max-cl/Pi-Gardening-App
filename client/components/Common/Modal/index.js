@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Image from "next/image";
 
 const ContainerModal = styled.div`
     width: 100vw;
@@ -13,11 +12,7 @@ const ContainerModal = styled.div`
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    z-index: 1;
-
-    h2 {
-        color: white;
-    }
+    z-index: 1003;
 
     &:before {
         content: "";
@@ -25,7 +20,7 @@ const ContainerModal = styled.div`
         bottom: 0;
         left: 0;
         right: 0;
-        background: ${(props) => props.theme.colors.bgColor};
+        background-color: ${(props) => props.theme.colors.ui.background.secondary};
         position: absolute;
         opacity: 1;
     }
@@ -34,23 +29,16 @@ const ContainerModal = styled.div`
 const IconContainer = styled.div`
     position: absolute;
     top: 1rem;
-    right: 1rem;
-
-    .icon {
-        cursor: pointer;
-
-        &:hover {
-            width: 140%;
-        }
-    }
+    right: 2rem;
+    color: ${(props) => props.theme.colors.ui.secondary};
+    cursor: pointer;
+    font-size: 2rem;
 `;
 
 export default function Modal({ children, handleClose }) {
     return (
         <ContainerModal>
-            <IconContainer>
-                <Image className="icon" src="/images/close.svg" alt="Edit element" width={20} height={20} objectFit="cover" onClick={handleClose} />
-            </IconContainer>
+            <IconContainer onClick={handleClose}>&#10006;</IconContainer>
             {children}
         </ContainerModal>
     );

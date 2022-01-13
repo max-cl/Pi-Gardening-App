@@ -5,35 +5,23 @@ import Link from "next/link";
 // Components
 import Navbar from "../../components/NavBar";
 import SideMenu from "../../components/SideMenu";
-import { Button } from "../../components/Common";
+import { Button, ButtonContainer, FormContainer, Separator } from "../../components/Common";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
 import { getAppCookies, verifyToken } from "../../util/authUtil";
 
-export const Container = styled.div`
-    margin: 2rem;
-    padding: 0;
-    height: 76vh;
+const Container = styled.div`
+    height: calc(100% - 62px);
+    width: 100%;
+    padding: 0.75rem 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+`;
 
-    label {
-        color: white;
-    }
-
-    select {
-        width: 100%;
-        height: 48px;
-        font-size: 1rem;
-    }
-
-    @media only screen and (min-width: 1000px) {
-        margin: 0;
-        margin-top: 2rem;
-        padding: 2.5rem;
-    }
+const StyledAnchor = styled.a`
+    width: 100%;
 `;
 
 export default function DashboardContainer({ devicesProps }) {
@@ -57,27 +45,30 @@ export default function DashboardContainer({ devicesProps }) {
             <Navbar />
             <SideMenu />
 
+            <Separator />
+
             <Container>
                 {devices.length > 0 && (
                     <div>
-                        <div>
-                            <label for="devices">Choose a device</label>
-                        </div>
-                        <select value={deviceSelected.value} onChange={handleChange}>
-                            <option value={0}>Devices</option>
-                            {devices.map((option) => (
-                                <option value={option._id}>{option.hostname}</option>
-                            ))}
-                        </select>
-                        {deviceSelected.value !== 0 && (
+                        <FormContainer>
+                            <h2>Choose a device</h2>
+                            <select value={deviceSelected.value} onChange={handleChange}>
+                                <option value={0}>Devices</option>
+                                {devices.map((option) => (
+                                    <option value={option._id}>{option.hostname}</option>
+                                ))}
+                            </select>
+
                             <Link href={`/realtime/${deviceSelected.value}`}>
-                                <a>
-                                    <Button type="button" width={100}>
-                                        Check it
-                                    </Button>
-                                </a>
+                                <StyledAnchor>
+                                    <ButtonContainer>
+                                        <Button type="button" disabled={deviceSelected.value === 0 ? true : false}>
+                                            Check it
+                                        </Button>
+                                    </ButtonContainer>
+                                </StyledAnchor>
                             </Link>
-                        )}
+                        </FormContainer>
                     </div>
                 )}
             </Container>

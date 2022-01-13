@@ -9,28 +9,34 @@ import SideMenu from "../../components/SideMenu";
 import { LineRealTime } from "../../components/Charts";
 import SensorDataManage from "../../components/SensorDataManage";
 import SensorStatusManage from "../../components/SensorStatusManage";
+import { Separator } from "../../components/Common";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
 import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 const Container = styled.div`
+    height: auto;
+    width: 100%;
+    padding: 0.75rem 0.5rem;
     grid-auto-rows: 200px;
 
     > div {
-        background: ${(props) => props.theme.colors.tertiary};
-        border-radius: ${(props) => props.theme.borderRadiusCard};
+        background-color: ${(props) => props.theme.colors.utility.white};
+        border-radius: ${(props) => props.theme.borderRadius};
     }
 
     @supports (grid-area: auto) {
         display: grid;
-        grid-column-gap: 0.25rem;
-        grid-row-gap: 0.25rem;
+        grid-column-gap: 0.5rem;
+        grid-row-gap: 0.5rem;
     }
 
     @media only screen and (min-width: 600px) {
         @supports (grid-area: auto) {
             grid-template-columns: repeat(12, 1fr);
+            height: auto;
+            width: 100%;
 
             > :nth-of-type(1) {
                 -ms-grid-column-span: 12;
@@ -53,10 +59,6 @@ const Container = styled.div`
             }
         }
     }
-
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 1rem;
 
     > div {
         display: flex;
@@ -106,6 +108,8 @@ export default function DashboardContainer({ sensorsProps }) {
         <>
             <Navbar />
             <SideMenu />
+
+            <Separator />
 
             <Container>
                 <div>

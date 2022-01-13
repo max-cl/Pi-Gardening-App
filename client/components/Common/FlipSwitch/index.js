@@ -13,7 +13,7 @@ const Container = styled.div`
         display: block;
         overflow: hidden;
         cursor: pointer;
-        border: 0.125rem solid ${(props) => props.theme.colors.border};
+        border: 0.125rem solid ${(props) => props.theme.colors.ui.border};
         border-radius: 1.25rem;
     }
     .onoffswitch-inner {
@@ -31,33 +31,33 @@ const Container = styled.div`
         padding: 0;
         line-height: 2rem;
         font-size: 1rem;
-        color: ${(props) => props.theme.colors.white};
-        font-weight: bold;
+        color: ${(props) => props.theme.colors.utility.white};
+        font-weight: ${(props) => props.theme.fontWeights.bold};
         box-sizing: border-box;
     }
     .onoffswitch-inner:before {
         content: "ON";
         padding-left: 0.75rem;
-        background-color: green;
-        color: ${(props) => props.theme.colors.white};
+        background-color: ${(props) => props.theme.colors.utility.green};
+        color: ${(props) => props.theme.colors.utility.white};
     }
     .onoffswitch-inner:after {
         content: "OFF";
         padding-right: 0.75rem;
-        background-color: red;
-        color: ${(props) => props.theme.colors.white};
+        background-color: ${(props) => props.theme.colors.utility.red};
+        color: ${(props) => props.theme.colors.utility.white};
         text-align: right;
     }
     .onoffswitch-switch {
         display: block;
         width: 18px;
         margin: 0.5rem;
-        background: ${(props) => props.theme.colors.white};
+        background-color: ${(props) => props.theme.colors.utility.white};
         position: absolute;
         top: 0;
         bottom: 0;
         right: 3.5rem;
-        border: 0.125rem solid ${(props) => props.theme.colors.border};
+        border: 0.125rem solid ${(props) => props.theme.colors.ui.border};
         border-radius: 1.25rem;
         transition: all 0.3s ease-in 0s;
     }

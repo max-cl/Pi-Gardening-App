@@ -1,6 +1,6 @@
 import styled from "styled-components";
 // Components
-import { Button, ErrorMessage } from "../Common";
+import { Button, ErrorMessage, ButtonContainer } from "../Common";
 
 const Form = styled.form`
     width: 100%;
@@ -63,9 +63,10 @@ export default function FormSignup({ handleOnSubmitSignup, formMessage, handleOn
                     autoComplete="false"
                 />
             </div>
-            <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
-                Signup
-            </Button>
+
+            <ButtonContainer>
+                <Button type="submit">Signup</Button>
+            </ButtonContainer>
         </Form>
     );
 }

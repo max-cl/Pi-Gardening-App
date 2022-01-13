@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, FlipSwitch, FormContainer, ServerMessage } from "../Common";
+import { Button, FlipSwitch, FormContainer, ServerMessage, ButtonContainer } from "../Common";
 
 const Form = styled.form`
     width: 100%;
@@ -47,9 +47,9 @@ export default function FormUpdateDevice({ title, handleOnChange, handleOnSubmit
                 <div>
                     <FlipSwitch isChecked={deviceToUpdate.status} handleOnChange={onChangeStatus} />
                 </div>
-                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
-                    Confirm Update
-                </Button>
+                <ButtonContainer>
+                    <Button type="submit">Update</Button>
+                </ButtonContainer>
             </Form>
         </FormContainer>
     );

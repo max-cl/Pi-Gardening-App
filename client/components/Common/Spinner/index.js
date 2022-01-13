@@ -9,7 +9,7 @@ const Container = styled.div`
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     border-radius: 50%;
-    border: 0.25rem solid ${(props) => props.theme.colors.primary};
+    border: 0.25rem solid ${(props) => props.theme.colors.ui.primary};
     border-style: dotted;
     display: flex;
     justify-content: center;
@@ -24,7 +24,7 @@ const Container = styled.div`
         animation-iteration-count: infinite;
         animation-timing-function: linear;
         border-radius: 50%;
-        border: 0.25rem solid ${(props) => props.theme.colors.primary};
+        border: 0.25rem solid ${(props) => props.theme.colors.ui.primary};
         border-style: dotted;
     }
 
@@ -41,7 +41,7 @@ const Container = styled.div`
 export const Spinner = () => {
     return (
         <Container>
-            <div class="inner"></div>
+            <div className="inner"></div>
         </Container>
     );
 };

@@ -1,11 +1,16 @@
-import { Button, FormContainer, ServerMessage } from "../Common";
+import styled from "styled-components";
+import { Button, FormContainer, ServerMessage, ButtonContainer } from "../Common";
+
+const Form = styled.form`
+    width: 100%;
+`;
 
 export default function FormAddSensor({ title, handleOnChange, handleOnSubmit, newSensor, serverMessage }) {
     return (
         <FormContainer>
             <h2>{title}</h2>
             <ServerMessage>{serverMessage}</ServerMessage>
-            <form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnSubmit}>
                 <div>
                     {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
                     <input type="text" name="name" id="name" placeholder="Name" onChange={handleOnChange} value={newSensor.name} />
@@ -30,10 +35,10 @@ export default function FormAddSensor({ title, handleOnChange, handleOnSubmit, n
                     />
                 </div>
 
-                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
-                    Add Sensor
-                </Button>
-            </form>
+                <ButtonContainer>
+                    <Button type="submit">Add Sensor</Button>
+                </ButtonContainer>
+            </Form>
         </FormContainer>
     );
 }

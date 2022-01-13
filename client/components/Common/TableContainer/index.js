@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 export const Container = styled(motion.div)`
     margin: 2rem;
     padding: 0;
-    background: ${(props) => props.theme.colors.tertiary};
+    background-color: ${(props) => props.theme.colors.utility.white};
     border-radius: ${(props) => props.theme.borderRadiusCard};
-    box-shadow: ${(props) => props.theme.boxShadow};
+    box-shadow: ${(props) => props.theme.colors.ui.boxShadow};
     max-height: 76vh;
     overflow: auto;
 
@@ -19,7 +19,7 @@ export const Container = styled(motion.div)`
 
 export default function TableContainer({ children }) {
     return (
-        <Container animate={{ scale: 1.1 }} transition={{ duration: 0.5 }}>
+        <Container animate={{ scale: 1.02 }} transition={{ duration: 0.5 }}>
             {children}
         </Container>
     );

@@ -5,92 +5,87 @@ import styled from "styled-components";
 import Navbar from "../../components/NavBar";
 import SideMenu from "../../components/SideMenu";
 import { BarChart, DoughnutChart, LineChart, PieChart, PolarChart, RadarChart, ScatterChart, BubbleChart } from "../../components/Charts";
+import { Separator } from "../../components/Common/Separator";
 
 // Utils
 import { ApiRequestUtil } from "../../util/ApiRequestUtil";
 import { getAppCookies, verifyToken } from "../../util/authUtil";
 
 const Container = styled.div`
-    grid-auto-rows: 200px;
+    height: auto;
+    width: 100%;
+    padding: 0.75rem 0.5rem;
 
-    > div {
-        background: ${(props) => props.theme.colors.tertiary};
-        border-radius: ${(props) => props.theme.borderRadiusCard};
+    div {
+        background-color: ${(props) => props.theme.colors.utility.white};
+        border-radius: ${(props) => props.theme.borderRadius};
     }
 
     @supports (grid-area: auto) {
         display: grid;
-        grid-column-gap: 0.25rem;
-        grid-row-gap: 0.25rem;
+        grid-column-gap: 0.5rem;
+        grid-row-gap: 0.5rem;
     }
 
     @media only screen and (min-width: 600px) {
         @supports (grid-area: auto) {
             grid-template-columns: repeat(12, 1fr);
+            height: auto;
+            width: 100%;
 
-            > :nth-of-type(1) {
+            > :nth-child(1) {
                 -ms-grid-column-span: 7;
                 grid-column-end: span 7;
                 -ms-grid-row-span: 2;
                 grid-row-end: span 2;
             }
-            > :nth-of-type(2) {
+            > :nth-child(2) {
                 -ms-grid-column-span: 5;
                 grid-column-end: span 5;
                 -ms-grid-row-span: 2;
                 grid-row-end: span 2;
             }
 
-            > :nth-of-type(3) {
+            > :nth-child(3) {
                 -ms-grid-column-span: 4;
                 grid-column-end: span 4;
                 -ms-grid-row-span: 1;
                 grid-row-end: span 2;
             }
-            > :nth-of-type(4) {
+            > :nth-child(4) {
                 -ms-grid-column-span: 4;
                 grid-column-end: span 4;
                 -ms-grid-row-span: 1;
                 grid-row-end: span 2;
             }
-            > :nth-of-type(5) {
-                -ms-grid-column-span: 4;
-                grid-column-end: span 4;
-                -ms-grid-row-span: 1;
-                grid-row-end: span 2;
-            }
-
-            > :nth-of-type(6) {
+            > :nth-child(5) {
                 -ms-grid-column-span: 4;
                 grid-column-end: span 4;
                 -ms-grid-row-span: 1;
                 grid-row-end: span 2;
             }
 
-            > :nth-of-type(7) {
+            > :nth-child(6) {
                 -ms-grid-column-span: 4;
                 grid-column-end: span 4;
                 -ms-grid-row-span: 1;
                 grid-row-end: span 2;
             }
 
-            > :nth-of-type(8) {
+            > :nth-child(7) {
+                -ms-grid-column-span: 4;
+                grid-column-end: span 4;
+                -ms-grid-row-span: 1;
+                grid-row-end: span 2;
+            }
+
+            > :nth-child(8) {
                 -ms-grid-column-span: 4;
                 grid-column-end: span 4;
                 -ms-grid-row-span: 1;
                 grid-row-end: span 2;
             }
         }
-    }
-
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 1rem;
-
-    > div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 `;
 
@@ -106,29 +101,32 @@ export default function DashboardContainer({ devicesProps }) {
             <Navbar />
             <SideMenu />
 
+            <Separator />
+
             <Container>
                 <div>
                     <LineChart />
                 </div>
-                <div>
+
+                <div id="b">
                     <DoughnutChart />
                 </div>
-                <div>
+                <div id="c">
                     <PieChart />
                 </div>
-                <div>
+                <div id="d">
                     <BarChart data1={data.avgDayByHours} />
                 </div>
-                <div>
+                <div id="e">
                     <PolarChart />
                 </div>
-                <div>
+                <div id="f">
                     <RadarChart />
                 </div>
-                <div>
+                <div id="g">
                     <ScatterChart />
                 </div>
-                <div>
+                <div id="h">
                     <BubbleChart />
                 </div>
             </Container>

@@ -12,9 +12,9 @@ import SideMenu from "../../components/SideMenu";
 import TableDeviceDetail from "../../components/TableDeviceDetail";
 import FormUpdateDevice from "../../components/FormUpdateDevice";
 import TableSensors from "../../components/TableSensors";
-import { Modal, Spinner } from "../../components/Common";
 import FormAddSensor from "../../components/FormAddSensor";
 import FormUpdateSensor from "../../components/FormUpdateSensor";
+import { Modal, Spinner, Separator } from "../../components/Common";
 
 const Container = styled.div`
     overflow: hidden;
@@ -63,18 +63,12 @@ export default function Device({ deviceProps }) {
     });
 
     /** Device */
-    const onChangeDevice = (event) =>
-        setDevice({ ...device, [event.target.name]: event.target.value });
-    const onChangeStatusDevice = (event) =>
-        setDevice({ ...device, status: event.target.checked });
+    const onChangeDevice = (event) => setDevice({ ...device, [event.target.name]: event.target.value });
+    const onChangeStatusDevice = (event) => setDevice({ ...device, status: event.target.checked });
     const UpdateDevice = async (event) => {
         event.preventDefault();
         console.log("device Update: ", device);
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/devices/${id}`,
-            "PUT",
-            device
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/devices/${id}`, "PUT", device);
         console.log("🚀 ~ UpdateDevice ~ result", {
             data,
             statusCode,
@@ -84,19 +78,14 @@ export default function Device({ deviceProps }) {
     };
 
     /** Sensor */
-    const onChangeNewSensor = (event) =>
-        setNewSensor({ ...newSensor, [event.target.name]: event.target.value });
+    const onChangeNewSensor = (event) => setNewSensor({ ...newSensor, [event.target.name]: event.target.value });
     // const onChangeStatusSensor = (event) => setNewSensor({ ...newSensor, status: event.target.checked });
     const AddNewSensor = async (event) => {
         event.preventDefault();
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/sensors`,
-            "POST",
-            {
-                deviceId: id,
-                newSensor,
-            }
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/sensors`, "POST", {
+            deviceId: id,
+            newSensor,
+        });
         console.log("AddNewSensor Added: ", { data, statusCode, message });
         let allSensors = [...sensors];
         allSensors.push(data);
@@ -106,37 +95,25 @@ export default function Device({ deviceProps }) {
 
     const removeSensor = async (sensorId) => {
         await ApiRequestUtil(`/sensors`, "DELETE", { deviceId: id, sensorId });
-        const filteredSensors = sensors.filter(
-            (filter) => filter._id !== sensorId
-        );
+        const filteredSensors = sensors.filter((filter) => filter._id !== sensorId);
         setSensors(filteredSensors);
     };
 
-    const onChangeSensorToUpdate = (event) =>
-        setSensor({ ...sensor, [event.target.name]: event.target.value });
-    const onChangeStatusSensorToUpdate = (event) =>
-        setSensor({ ...sensor, status: event.target.checked });
+    const onChangeSensorToUpdate = (event) => setSensor({ ...sensor, [event.target.name]: event.target.value });
+    const onChangeStatusSensorToUpdate = (event) => setSensor({ ...sensor, status: event.target.checked });
     const editSensor = (sensorId) => {
         setOpenModalUpdateSensor(!openModalUpdateSensor);
-        const sensorToUpdate = sensors.filter(
-            (sensor) => sensor._id === sensorId
-        );
+        const sensorToUpdate = sensors.filter((sensor) => sensor._id === sensorId);
         console.log("🚀 ~ editSensor ~ sensorToUpdate", sensorToUpdate);
         setSensor(sensorToUpdate[0]);
     };
     const UpdateSensor = async (event) => {
         event.preventDefault();
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/sensors`,
-            "PUT",
-            {
-                deviceId: id,
-                sensor,
-            }
-        );
-        const sensorIndex = sensors.findIndex(
-            (element) => element._id == sensor._id
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/sensors`, "PUT", {
+            deviceId: id,
+            sensor,
+        });
+        const sensorIndex = sensors.findIndex((element) => element._id == sensor._id);
         let copySensors = [...sensors];
 
         copySensors[sensorIndex] = {
@@ -153,14 +130,10 @@ export default function Device({ deviceProps }) {
     };
 
     const handleMQTT = async (topic) => {
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/mqtt`,
-            "POST",
-            {
-                topic: `${id}/${topic}`,
-                message: `Sent message to topic ${id}/${topic}`,
-            }
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/mqtt`, "POST", {
+            topic: `${id}/${topic}`,
+            message: `Sent message to topic ${id}/${topic}`,
+        });
         console.log(`Sent message to topic ${id}/${topic}`);
     };
 
@@ -179,6 +152,8 @@ export default function Device({ deviceProps }) {
             <Navbar />
             <SideMenu />
 
+            <Separator />
+
             <Content>
                 {openModal && (
                     <Modal handleClose={() => setOpenModal(!openModal)}>
@@ -195,19 +170,11 @@ export default function Device({ deviceProps }) {
                 {device.length === 0 ? (
                     <Spinner />
                 ) : (
-                    <TableDeviceDetail
-                        device={device}
-                        handleOnClick={() => setOpenModal(!openModal)}
-                        handleMQTT={handleMQTT}
-                    />
+                    <TableDeviceDetail device={device} handleOnClick={() => setOpenModal(!openModal)} handleMQTT={handleMQTT} />
                 )}
 
                 {openModalAddSensor && (
-                    <Modal
-                        handleClose={() =>
-                            setOpenModalAddSensor(!openModalAddSensor)
-                        }
-                    >
+                    <Modal handleClose={() => setOpenModalAddSensor(!openModalAddSensor)}>
                         <FormAddSensor
                             title="Sensor Information"
                             handleOnChange={onChangeNewSensor}
@@ -220,11 +187,7 @@ export default function Device({ deviceProps }) {
                 )}
 
                 {openModalUpdateSensor && (
-                    <Modal
-                        handleClose={() =>
-                            setOpenModalUpdateSensor(!openModalUpdateSensor)
-                        }
-                    >
+                    <Modal handleClose={() => setOpenModalUpdateSensor(!openModalUpdateSensor)}>
                         <FormUpdateSensor
                             title="Sensor Information"
                             handleOnChange={onChangeSensorToUpdate}
@@ -266,10 +229,7 @@ export async function getServerSideProps(context) {
             },
         };
     } else {
-        const { data, statusCode, message } = await ApiRequestUtil(
-            `/devices`,
-            "GET"
-        );
+        const { data, statusCode, message } = await ApiRequestUtil(`/devices`, "GET");
         const deviceById = data.filter((device) => device._id === params.id);
         console.log("getServerSideProps: ", {
             device: deviceById[0],

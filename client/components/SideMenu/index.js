@@ -33,6 +33,7 @@ const Nav = styled(motion.nav)`
     bottom: 0;
     width: 300px;
     z-index: ${(props) => (props.open ? 1002 : 0)};
+    z-index: 1002;
 `;
 
 const Drawer = styled(motion.div)`
@@ -41,7 +42,7 @@ const Drawer = styled(motion.div)`
     left: 0;
     bottom: 0;
     width: 300px;
-    background: ${(props) => props.theme.colors.secondary};
+    background: ${(props) => props.theme.colors.ui.primary};
 `;
 
 export default function SideMenu() {

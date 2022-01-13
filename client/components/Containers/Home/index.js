@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -10,12 +11,13 @@ import FormHome from "../../FormHome";
 import { ApiRequestUtil } from "../../../util/ApiRequestUtil";
 
 const Container = styled.div`
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: ${(props) => props.theme.colors.ui.background.secondary};
 `;
 
 const TitleContainer = styled.div`
@@ -30,11 +32,12 @@ const TitleContainer = styled.div`
         font-weight: bold;
         color: white;
         font-size: 4rem;
-        padding: 0 0 2rem;
+        /* padding: 0 0 2rem; */
+        color: ${(props) => props.theme.colors.ui.quaternary};
     }
 
     span {
-        color: ${(props) => props.theme.colors.primary};
+        color: ${(props) => props.theme.colors.ui.secondary};
     }
 `;
 
@@ -127,8 +130,9 @@ export default function HomeContainer() {
     return (
         <Container>
             <TitleContainer>
+                {/* <Image className="icon" src={`/images/raspberrypi.svg`} alt={`raspberrypi`} width={80} height={80} /> */}
                 <h1>
-                    PI<span>Gardenning</span>
+                    Pi<span>Gardenning</span>
                 </h1>
             </TitleContainer>
             <FormContainer>

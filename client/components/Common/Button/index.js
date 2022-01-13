@@ -1,24 +1,29 @@
-import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
-    width: props.width || 50,
+    width: props.width || 100,
     zIndex: props.zIndex || 1,
 }))`
-    width: ${(props) => props.width}%;
     z-index: ${(props) => props.zIndex};
     cursor: pointer;
+    padding: 0.75rem;
+    margin: 0.25rem 0;
+    background-color: ${(props) => props.theme.colors.form.primary};
+    color: ${(props) => props.theme.colors.utility.white};
+    font-weight: ${(props) => props.theme.fontWeights.bold};
+    text-transform: uppercase;
+    border: none;
+    box-shadow: ${(props) => props.theme.colors.ui.boxShadow};
+    width: 100%;
 
-    @media only screen and (min-width: 600px) {
-        width: 25%;
+    &:disabled {
+        background-color: ${(props) => props.theme.colors.ui.disabled};
+        cursor: not-allowed;
+        pointer-events: none;
     }
 
-    @media only screen and (min-width: 900px) {
-        width: 15%;
-    }
-
-    @media only screen and (min-width: 1000px) {
-        width: ${(props) => props.width}%;
+    &:hover {
+        background-color: ${(props) => props.theme.colors.ui.hover};
     }
 `;

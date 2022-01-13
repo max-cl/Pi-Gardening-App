@@ -12,15 +12,16 @@ const Container = styled.div`
     display: grid !important;
     grid-template-columns: repeat(2, 50%);
     grid-template-rows: repeat(2, 50%);
-    grid-gap: 0.5rem;
-    background-color: ${(props) => props.theme.colors.secondary} !important;
+    grid-gap: 0.25rem;
+    background-color: ${(props) => props.theme.colors.ui.quaternary} !important;
     overflow: hidden;
     position: relative;
+    box-shadow: ${(props) => props.theme.colors.ui.boxShadow};
 `;
 
 const Content = styled.div`
     text-align: center;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.utility.white};
     height: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -29,14 +30,14 @@ const Content = styled.div`
 
     h5 {
         width: 100%;
-        color: ${(props) => props.theme.colors.secondary};
-        font-weight: 900;
+        color: ${(props) => props.theme.colors.text.primary};
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 
     p {
         width: 100%;
-        color: ${(props) => props.theme.colors.secondary};
-        font-weight: 800;
+        color: ${(props) => props.theme.colors.text.primary};
+        font-weight: ${(props) => props.theme.fontWeights.bold};
         font-size: 2rem;
     }
 
@@ -49,9 +50,9 @@ const ButtonGetData = styled(Button)`
     position: absolute;
     left: 40%;
     padding: 2rem;
-    box-shadow: ${(props) => props.theme.boxShadow};
+    box-shadow: ${(props) => props.theme.colors.ui.boxShadow};
     border-radius: 50%;
-    font-weight: 900;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
     font-size: 1rem;
     width: 120px;
     height: 120px;

@@ -1,11 +1,16 @@
-import { Button, FormContainer, ServerMessage } from "../Common";
+import styled from "styled-components";
+import { Button, FormContainer, ServerMessage, ButtonContainer } from "../Common";
+
+const Form = styled.form`
+    width: 100%;
+`;
 
 export default function FormAddDevice({ title, handleOnChange, handleOnSubmit, newDevice, serverMessage }) {
     return (
         <FormContainer>
             <h2>{title}</h2>
             <ServerMessage>{serverMessage}</ServerMessage>
-            <form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnSubmit}>
                 <div>
                     {/* <ErrorMessage>Email can not be empty</ErrorMessage> */}
                     <input
@@ -30,19 +35,12 @@ export default function FormAddDevice({ title, handleOnChange, handleOnSubmit, n
                 </div>
                 <div>
                     {/* <ErrorMessage>Password can not be empty</ErrorMessage> */}
-                    <input
-                        type="text"
-                        name="type"
-                        id="type"
-                        placeholder="Device Type"
-                        onChange={handleOnChange}
-                        value={newDevice.type}
-                    />
+                    <input type="text" name="type" id="type" placeholder="Device Type" onChange={handleOnChange} value={newDevice.type} />
                 </div>
-                <Button type="submit" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} width={100}>
-                    Add
-                </Button>
-            </form>
+                <ButtonContainer>
+                    <Button type="submit">Add</Button>
+                </ButtonContainer>
+            </Form>
         </FormContainer>
     );
 }

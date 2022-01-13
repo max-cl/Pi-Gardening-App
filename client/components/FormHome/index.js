@@ -8,37 +8,26 @@ import FormSignup from "../FormSignup";
 const FormOptions = styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
 
     a.active {
-        background: ${(props) => props.theme.colors.primary};
-        color: ${(props) => props.theme.colors.secondary};
+        color: ${(props) => props.theme.colors.utility.black};
+        border-bottom: 0.125rem solid ${(props) => props.theme.colors.form.secondary};
         cursor: not-allowed;
         pointer-events: none;
     }
 
     a.disabled {
-        color: white;
-        background: ${(props) => props.theme.colors.secondary};
-    }
-
-    .signin {
-        margin-right: -0.125rem;
-    }
-
-    .signup {
-        margin-left: -0.125rem;
+        color: ${(props) => props.theme.colors.ui.disabled};
     }
 
     a {
-        padding: 0.5rem 1.25em;
+        padding: 0.25rem 1rem;
         color: ${(props) => props.theme.colors.white};
-        font-weight: bold;
-        border-radius: 0.078125rem;
-        margin-top: -0.25rem;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
         text-align: center;
         text-transform: uppercase;
         cursor: pointer;
+        font-size: 0.75rem;
     }
 `;
 
@@ -56,10 +45,10 @@ export default function FormHome({
     return (
         <FormContainer height={isLogin ? undefined : 476}>
             <FormOptions>
-                <a href="#" className={`signin ${isLogin ? "active" : "disabled"}`} onClick={handleIsLogin}>
+                <a href="#" className={`${isLogin ? "active" : "disabled"}`} onClick={handleIsLogin}>
                     Login
                 </a>
-                <a href="#" className={`signup ${isLogin ? "disabled" : "active"}`} onClick={handleIsLogin}>
+                <a href="#" className={`${isLogin ? "disabled" : "active"}`} onClick={handleIsLogin}>
                     Signup
                 </a>
             </FormOptions>
